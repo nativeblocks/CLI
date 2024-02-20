@@ -1,4 +1,4 @@
-import {ResultModel} from "../../result/model/ResultModel";
+import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
 
 export interface RegionRepository {
   set(url: string): ResultModel<string>

@@ -1,4 +1,4 @@
-import {ResultModel} from "../../result/model/ResultModel";
+import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
 import {RegionRepository} from "./RegionRepository";
 import os from "os";
 import path from "path";
@@ -24,7 +24,6 @@ class RegionRepositoryImpl implements RegionRepository {
     }
     try {
       fs.writeFileSync(this.regionPath, JSON.stringify(json))
-      console.log();
       return {
         onSuccess: `regin saved to file successfully at ${this.regionPath}`
       }
