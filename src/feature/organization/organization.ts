@@ -7,7 +7,7 @@ export function organization(program: Command) {
     .action(async () => {
       const result = await organizationRepository.organizations()
       if (result.onSuccess) {
-        console.log(result.onSuccess)
+        console.table(result.onSuccess)
       } else {
         console.log(result.onError)
       }

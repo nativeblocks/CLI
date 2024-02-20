@@ -3,7 +3,7 @@ import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
 import {getGraphqlClient} from "../../../infrastructure/network/NetworkComponent";
 import {IntegrationModel} from "./integrationModel";
 import {integrationToModel} from "./IntegrationMapper";
-import {INTEGRATIONS_QUERY} from "./IntegrationQuery";
+import {INTEGRATION_QUERY, INTEGRATIONS_QUERY} from "./IntegrationQuery";
 
 class IntegrationRepositoryImpl implements IntegrationRepository {
 
@@ -36,8 +36,23 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
       }
     }
   }
-}
 
+  async integration(organizationId: string, integrationId: string): Promise<ResultModel<IntegrationModel>> {
+    try {
+      const result = await this.graphqlClient.request(INTEGRATION_QUERY, {
+        organizationId: organizationId,
+        integrationId: integrationId,
+      });
+      return {
+        onSuccess: integrationToModel(result.integration)
+      }
+    } catch (error: any) {
+      return {
+        onError: error.message,
+      }
+    }
+  }
+}
 
 export const integrationRepository: IntegrationRepository = new IntegrationRepositoryImpl(
   getGraphqlClient()

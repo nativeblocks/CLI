@@ -88,6 +88,12 @@ export const INTEGRATION_QUERY = gql`
         id
         event
       }
+      data {
+        id
+        key
+        value
+        type
+      }
     }
   }
 `;

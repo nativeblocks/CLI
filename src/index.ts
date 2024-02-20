@@ -3,7 +3,7 @@ import {Command} from "commander";
 import {region} from "./feature/region/region";
 import {auth} from "./feature/login/auth";
 import {organization} from "./feature/organization/organization";
-import {integrations} from "./feature/integration/integration";
+import {addIntegration, integration, integrations} from "./feature/integration/integration";
 
 const program = new Command();
 
@@ -17,6 +17,8 @@ program
 region(program)
 auth(program)
 organization(program)
-integrations(program)
+const integrationCommand = integration(program)
+integrations(integrationCommand)
+addIntegration(integrationCommand)
 
 program.parse();

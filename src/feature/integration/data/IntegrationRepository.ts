@@ -3,4 +3,5 @@ import {IntegrationModel} from "./integrationModel";
 
 export interface IntegrationRepository {
   integrations(organizationId: string, isPublic: boolean, kind: string, platformSupport: string): Promise<ResultModel<IntegrationModel[]>>;
+  integration(organizationId: string, integrationId: string): Promise<ResultModel<IntegrationModel>>;
 }
