@@ -1,19 +1,11 @@
 import {IntegrationRepository} from "./IntegrationRepository";
 import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
-import os from "os";
-import path from "path";
 import {getGraphqlClient} from "../../../infrastructure/network/NetworkComponent";
-import {GET_ORGANIZATIONS_QUERY} from "./IntegrationQuery";
-
-export type OrganizationModel = {
-  id: string;
-  name: string;
-};
+import {IntegrationModel} from "./integrationModel";
+import {integrationToModel} from "./IntegrationMapper";
+import {INTEGRATIONS_QUERY} from "./IntegrationQuery";
 
 class IntegrationRepositoryImpl implements IntegrationRepository {
-  private userHomeDir: string = os.homedir();
-  private credentialPath: string = path.join(this.userHomeDir, ".nativeblocks/cli/credential.json");
-  private directory = path.dirname(this.credentialPath);
 
   private readonly graphqlClient: any;
 
@@ -21,15 +13,21 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
     this.graphqlClient = graphqlClient;
   }
 
-  async organizations(): Promise<ResultModel<OrganizationModel[]>> {
+  async integrations(organizationId: string, isPublic: boolean, kind: string, platformSupport: string): Promise<ResultModel<IntegrationModel[]>> {
     try {
-      const result = await this.graphqlClient.request(GET_ORGANIZATIONS_QUERY);
+      const result = await this.graphqlClient.request(INTEGRATIONS_QUERY, {
+        organizationId: organizationId,
+        public: isPublic,
+        kind: kind,
+        platformSupport: platformSupport,
+        page: 0,
+        limit: 10000,
+        orderBy: "createdAt",
+        sortOf: "DESC",
+      });
       return {
-        onSuccess: result.organizations?.map((item: any) => {
-          return {
-            id: item?.id ?? "",
-            name: item?.name ?? "",
-          } as OrganizationModel
+        onSuccess: result.integrations?.map((item: any) => {
+          return integrationToModel(item)
         }) ?? []
       }
     } catch (error: any) {
@@ -41,6 +39,6 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
 }
 
 
-export const organizationRepository: IntegrationRepository = new IntegrationRepositoryImpl(
+export const integrationRepository: IntegrationRepository = new IntegrationRepositoryImpl(
   getGraphqlClient()
 );
