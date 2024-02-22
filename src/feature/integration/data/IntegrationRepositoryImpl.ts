@@ -3,7 +3,7 @@ import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
 import {getGraphqlClient} from "../../../infrastructure/network/NetworkComponent";
 import {IntegrationModel} from "./integrationModel";
 import {integrationToModel} from "./IntegrationMapper";
-import {INTEGRATION_QUERY, INTEGRATIONS_QUERY} from "./IntegrationQuery";
+import {ADD_INTEGRATION_QUERY, INTEGRATION_QUERY, INTEGRATIONS_QUERY} from "./IntegrationQuery";
 
 class IntegrationRepositoryImpl implements IntegrationRepository {
 
@@ -45,6 +45,40 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
       });
       return {
         onSuccess: integrationToModel(result.integration)
+      }
+    } catch (error: any) {
+      return {
+        onError: error.message,
+      }
+    }
+  }
+
+  async add(body: {
+    organizationId: string;
+    platformSupport: string;
+    public: boolean;
+    price: number;
+    kind: string;
+    imageIcon: string;
+    documentation: string;
+    name: string;
+    description: string;
+    keyType: string
+  }): Promise<ResultModel<string>> {
+    if (!body.organizationId) return {
+      onError: "The entered organizationId is not valid"
+    }
+    if (!body.name) return {
+      onError: "The entered name is not valid"
+    }
+    if (!body.keyType) return {
+      onError: "The entered keyType is not valid"
+    }
+
+    try {
+      const result = await this.graphqlClient.request(ADD_INTEGRATION_QUERY, {input: body});
+      return {
+        onSuccess: `The integration '${body.name}' has been created successfully with '${result.createIntegration.id}' id`
       }
     } catch (error: any) {
       return {

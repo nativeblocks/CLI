@@ -1,5 +1,6 @@
 import {Command} from "commander";
 import {integrationRepository} from "./data/IntegrationRepositoryImpl";
+import {confirm, input, select} from "@inquirer/prompts";
 
 export function integrations(program: Command) {
   return program.command("list")
@@ -62,35 +63,73 @@ export function integration(program: Command) {
 export function addIntegration(program: Command) {
   return program.command("add")
     .description("Add a new integration")
-    .option("-orgId, --organizationId", "Organization id")
-    .option("-i, --input", "Input of integration")
-    .argument('<organizationId>', "id")
-    .argument('<input>', "json")
-    .action(async (organizationId, input) => {
-      console.log("Hello")
-      // const result = await integrationRepository.integration(organizationId, integrationId)
-      // if (result.onSuccess) {
-      //   const allowed = [
-      //     "id",
-      //     "name",
-      //     "keyType",
-      //     "imageIcon",
-      //     "price",
-      //     "version",
-      //     "description",
-      //     "documentation",
-      //     "platformSupport",
-      //     "kind",
-      //     "public",
-      //     "paymentRequire",
-      //     "manageable",
-      //   ];
-      //   const filtered = Object.fromEntries(
-      //     Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
-      //   );
-      //   console.log(filtered)
-      // } else {
-      //   console.log(result.onError)
-      // }
+    .action(async () => {
+      try {
+        const body = {
+          organizationId: "",
+          keyType: "",
+          name: "",
+          imageIcon: "",
+          price: 0,
+          description: "",
+          documentation: "",
+          platformSupport: "",
+          public: false,
+          kind: "",
+        }
+        body.organizationId = await input({message: "Enter organization id (Owner of the integration)"})
+        body.keyType = await input({message: "Enter the integration keyType (Must be unique for entire of the platform)"})
+        body.name = await input({message: "Enter the integration name"})
+        body.imageIcon = await input({message: "Enter the integration imageIcon url"})
+        body.price = Number(await input({message: "Enter the integration price leave 0 if it's free"}))
+        body.description = await input({message: "Enter the integration short description"})
+        body.documentation = await input({message: "Enter the integration documentation in MD format"})
+        body.platformSupport = await select({
+          message: "Enter the integration platformSupport",
+          choices: [
+            {
+              name: "Android",
+              value: "ANDROID",
+              disabled: false
+            },
+            {
+              name: "iOS",
+              value: "IOS",
+              disabled: true
+            },
+            {
+              name: "React",
+              value: "REACT",
+              disabled: false
+            }
+          ]
+        })
+        body.kind = await select({
+          message: "Enter the integration kind",
+          choices: [
+            {
+              name: "Block",
+              value: "BLOCK",
+            },
+            {
+              name: "Magic",
+              value: "MAGIC",
+            },
+            {
+              name: "Logger",
+              value: "LOGGER",
+            }
+          ]
+        })
+        body.public = await confirm({message: "Is the integration public"})
+        const result = await integrationRepository.add(body)
+        if (result.onSuccess) {
+          console.table(result.onSuccess)
+        } else {
+          console.log(result.onError)
+        }
+      } catch (e) {
+        console.log("Filling information interrupted")
+      }
     });
 }

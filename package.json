@@ -1,5 +1,5 @@
 {
-  "name": "@nativeblocks/nativeblocks-cli",
+  "name": "@nativeblocks/cli",
   "version": "0.1.0",
   "description": "Nativeblocks CLI",
   "main": "dist/cjs/index.js",
@@ -29,6 +29,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@inquirer/prompts": "^4.1.0",
     "@types/figlet": "^1.5.8",
     "commander": "^12.0.0",
     "figlet": "^1.7.0",

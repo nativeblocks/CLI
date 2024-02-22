@@ -32,29 +32,6 @@ export const INTEGRATIONS_QUERY = gql`
     }
   }
 `;
-
-export const INTEGRATIONS_INSTALLED_QUERY = gql`
-  query integrationsInstalled(
-    $organizationId: String!
-    $projectId: String!
-    $kind: String!
-  ) {
-    integrationsInstalled(
-      organizationId: $organizationId
-      projectId: $projectId
-      kind: $kind
-    ) {
-      id
-      integrationKeyType
-      integrationName
-      integrationVersion
-      integrationImageIcon
-      integrationId
-      projectId
-      hasUpdate
-    }
-  }
-`;
 export const INTEGRATION_QUERY = gql`
   query integration($organizationId: String!, $integrationId: String!) {
     integration(
@@ -97,45 +74,10 @@ export const INTEGRATION_QUERY = gql`
     }
   }
 `;
-export const CHECK_INTEGRATION_QUERY = gql`
-  query integrationCheckInstallation(
-    $organizationId: String!
-    $projectId: String!
-    $integrationId: String!
-  ) {
-    integrationCheckInstallation(
-      organizationId: $organizationId
-      projectId: $projectId
-      integrationId: $integrationId
-    ) {
-      id
-      integrationKeyType
-      integrationName
-      integrationVersion
-      integrationId
-      projectId
-      hasUpdate
+export const ADD_INTEGRATION_QUERY = gql`
+mutation createIntegration($input: AddIntegrationInput!) {
+    createIntegration(input: $input) {
+        id
     }
-  }
-`;
-export const UNINSTALL_INTEGRATION_MUTATION = gql`
-  mutation unInstallIntegration($input: UnInstallIntegrationInput!) {
-    unInstallIntegration(input: $input) {
-      id
-    }
-  }
-`;
-export const INSTALL_INTEGRATION_MUTATION = gql`
-  mutation installIntegration($input: InstallIntegrationInput!) {
-    installIntegration(input: $input) {
-      id
-    }
-  }
-`;
-export const UPGRADE_INTEGRATION_MUTATION = gql`
-  mutation upgradeIntegration($input: UpgradeIntegrationInput!) {
-    upgradeIntegration(input: $input) {
-      id
-    }
-  }
+}
 `;
