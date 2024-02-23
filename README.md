@@ -23,19 +23,16 @@ Also, as following you can see the usage
 
 #### Set a region
 
-- -s, --set, Set api region url
-- -g, --get, Get api region url
+- -u, --url, Set api region url
 
 ```bash
-nativeblocks region --set "https://api.example.com"
-nativeblocks region -s "https://api.example.com"
+nativeblocks region set "https://api.example.com"
 ```
 
 #### Get the region
 
 ```bash
-nativeblocks region --get
-nativeblocks region -g
+nativeblocks region get
 ```
 
 ### Auth
