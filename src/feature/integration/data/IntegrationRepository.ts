@@ -17,5 +17,16 @@ export interface IntegrationRepository {
     name: string;
     description: string;
     keyType: string
+  }): Promise<ResultModel<IntegrationModel>>;
+
+  update(body: {
+    id: string;
+    organizationId: string;
+    public: boolean;
+    price: number;
+    imageIcon: string;
+    documentation: string;
+    name: string;
+    description: string;
   }): Promise<ResultModel<string>>;
 }

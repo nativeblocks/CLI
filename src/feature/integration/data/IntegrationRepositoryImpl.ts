@@ -3,7 +3,12 @@ import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
 import {getGraphqlClient} from "../../../infrastructure/network/NetworkComponent";
 import {IntegrationModel} from "./integrationModel";
 import {integrationToModel} from "./IntegrationMapper";
-import {ADD_INTEGRATION_QUERY, INTEGRATION_QUERY, INTEGRATIONS_QUERY} from "./IntegrationQuery";
+import {
+  ADD_INTEGRATION_QUERY,
+  INTEGRATION_QUERY,
+  INTEGRATIONS_QUERY,
+  UPDATE_INTEGRATION_QUERY
+} from "./IntegrationQuery";
 
 class IntegrationRepositoryImpl implements IntegrationRepository {
 
@@ -64,7 +69,7 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
     name: string;
     description: string;
     keyType: string
-  }): Promise<ResultModel<string>> {
+  }): Promise<ResultModel<IntegrationModel>> {
     if (!body.organizationId) return {
       onError: "The entered organizationId is not valid"
     }
@@ -74,11 +79,38 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
     if (!body.keyType) return {
       onError: "The entered keyType is not valid"
     }
-
     try {
       const result = await this.graphqlClient.request(ADD_INTEGRATION_QUERY, {input: body});
       return {
-        onSuccess: `The integration '${body.name}' has been created successfully with '${result.createIntegration.id}' id`
+        onSuccess: integrationToModel(result.createIntegration)
+      }
+    } catch (error: any) {
+      return {
+        onError: error.message,
+      }
+    }
+  }
+
+  async update(body: {
+    id: string;
+    organizationId: string;
+    public: boolean;
+    price: number;
+    imageIcon: string;
+    documentation: string;
+    name: string;
+    description: string
+  }): Promise<ResultModel<string>> {
+    if (!body.organizationId) return {
+      onError: "The entered organizationId is not valid"
+    }
+    if (!body.id) return {
+      onError: "The entered integrationId is not valid"
+    }
+    try {
+      const result = await this.graphqlClient.request(UPDATE_INTEGRATION_QUERY, {input: body});
+      return {
+        onSuccess: result.updateIntegration
       }
     } catch (error: any) {
       return {

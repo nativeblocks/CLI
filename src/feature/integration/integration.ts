@@ -1,6 +1,7 @@
 import {Command} from "commander";
 import {integrationRepository} from "./data/IntegrationRepositoryImpl";
 import {confirm, input, select} from "@inquirer/prompts";
+import fs from "fs";
 
 export function integrations(program: Command) {
   return program.command("list")
@@ -30,8 +31,8 @@ export function integration(program: Command) {
     .description("The integration detail")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
-    .argument('<organizationId>', "id")
-    .argument('<integrationId>', "id")
+    .argument('<organizationId>', "organization id")
+    .argument('<integrationId>', "integration id")
     .action(async (organizationId, integrationId) => {
       const result = await integrationRepository.integration(organizationId, integrationId)
       if (result.onSuccess) {
@@ -47,8 +48,6 @@ export function integration(program: Command) {
           "platformSupport",
           "kind",
           "public",
-          "paymentRequire",
-          "manageable",
         ];
         const filtered = Object.fromEntries(
           Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
@@ -65,6 +64,7 @@ export function addIntegration(program: Command) {
     .description("Add a new integration")
     .action(async () => {
       try {
+        const path = `${__dirname}/.nativeblocks`
         const body = {
           organizationId: "",
           keyType: "",
@@ -122,9 +122,77 @@ export function addIntegration(program: Command) {
           ]
         })
         body.public = await confirm({message: "Is the integration public"})
+        const filePath = await input({message: `Enter a path to save the result, by default it saves in ${path}`})
         const result = await integrationRepository.add(body)
         if (result.onSuccess) {
-          console.table(result.onSuccess)
+          const allowed = [
+            "name",
+            "keyType",
+            "imageIcon",
+            "price",
+            "description",
+            "documentation",
+            "platformSupport",
+            "kind",
+            "public",
+          ];
+          const filtered = Object.fromEntries(
+            Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
+          );
+          console.log("=========================================================================================")
+          if (!fs.existsSync(filePath)) {
+            fs.mkdirSync(filePath, {recursive: true});
+          }
+          fs.writeFileSync(`${filePath}/integration.json`, JSON.stringify(filtered))
+          console.log(`The result saved into ${filePath}/integration.json`)
+          console.log("=========================================================================================")
+        } else {
+          console.log(result.onError)
+        }
+      } catch (e) {
+        console.error(e)
+        console.log("Filling information interrupted")
+      }
+    });
+}
+
+export function updateIntegration(program: Command) {
+  return program.command("update")
+    .description("Update the integration")
+    .option("-orgId, --organizationId", "Organization id")
+    .option("-id, --integrationId", "Integration id")
+    .option("-f, --file", "Integration file")
+    .argument('<organizationId>', "organization id")
+    .argument('<integrationId>', "integration id")
+    .argument('<file>', "integration file")
+    .action(async (organizationId, integrationId, file) => {
+      try {
+        const data: string = fs.readFileSync(file, "utf-8");
+        const json = JSON.parse(data)
+        const result = await integrationRepository.update({
+          organizationId: organizationId,
+          id: integrationId,
+          ...json
+        })
+        if (result.onSuccess) {
+          const allowed = [
+            "name",
+            "keyType",
+            "imageIcon",
+            "price",
+            "description",
+            "documentation",
+            "platformSupport",
+            "kind",
+            "public",
+          ];
+          const filtered = Object.fromEntries(
+            Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
+          );
+          console.log("=========================================================================================")
+          fs.writeFileSync(file, JSON.stringify(filtered))
+          console.log(`The result updated into ${file}`)
+          console.log("=========================================================================================")
         } else {
           console.log(result.onError)
         }

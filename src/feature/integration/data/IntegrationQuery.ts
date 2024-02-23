@@ -77,7 +77,35 @@ export const INTEGRATION_QUERY = gql`
 export const ADD_INTEGRATION_QUERY = gql`
 mutation createIntegration($input: AddIntegrationInput!) {
     createIntegration(input: $input) {
-        id
+      id
+      keyType
+      name
+      imageIcon
+      price
+      version
+      description
+      platformSupport
+      kind
+      public
+      documentation
     }
-}
+  }
+`;
+
+export const UPDATE_INTEGRATION_QUERY = gql`
+mutation updateIntegration($input: UpdateIntegrationInput!) {
+    updateIntegration(input: $input) {
+      id
+      keyType
+      name
+      imageIcon
+      price
+      version
+      description
+      platformSupport
+      kind
+      public
+      documentation
+    }
+  }
 `;
