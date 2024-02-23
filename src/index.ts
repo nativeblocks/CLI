@@ -12,7 +12,7 @@ const program = new Command();
 program
   .name("nativeblocks")
   .description("Nativeblocks CLI for integration management")
-  .version("0.1.0")
+  .version("1.0.0")
 
 region(program)
 auth(program)
