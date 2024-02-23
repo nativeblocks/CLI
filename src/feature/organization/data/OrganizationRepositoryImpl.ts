@@ -11,9 +11,6 @@ export type OrganizationModel = {
 };
 
 class OrganizationRepositoryImpl implements OrganizationRepository {
-  private userHomeDir: string = os.homedir();
-  private credentialPath: string = path.join(this.userHomeDir, ".nativeblocks/cli/credential.json");
-  private directory = path.dirname(this.credentialPath);
 
   private readonly graphqlClient: any;
 
