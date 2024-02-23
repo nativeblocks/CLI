@@ -1,18 +1,16 @@
-import figlet from "figlet"
 import {Command} from "commander";
 import {region} from "./feature/region/region";
 import {auth} from "./feature/login/auth";
 import {organization} from "./feature/organization/organization";
-import {addIntegration, integration, integrations, updateIntegration} from "./feature/integration/integration";
+import {addIntegration, integration, integrations, syncIntegration} from "./feature/integration/integration";
+import {integrationEvent, syncIntegrationEvent} from "./feature/integration/integrationEvent";
 
 const program = new Command();
-
-console.log(figlet.textSync("Nativeblocks"));
 
 program
   .name("nativeblocks")
   .description("Nativeblocks CLI for integration management")
-  .version("0.1.0");
+  .version("0.1.0")
 
 region(program)
 auth(program)
@@ -20,6 +18,9 @@ organization(program)
 const integrationCommand = integration(program)
 integrations(integrationCommand)
 addIntegration(integrationCommand)
-updateIntegration(integrationCommand)
+syncIntegration(integrationCommand)
+
+const eventCommand = integrationEvent(integrationCommand)
+syncIntegrationEvent(eventCommand)
 
 program.parse();

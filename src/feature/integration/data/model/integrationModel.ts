@@ -16,25 +16,12 @@ export type IntegrationModel = {
   data?: IntegrationDataModel[];
 };
 
-export type IntegrationProjectModel = {
-  id: string;
-  projectId: string;
-  integrationName: string;
-  integrationKeyType: string;
-  integrationId: string;
-  integrationVersion: number;
-  integrationImage: string;
-  hasUpdate: boolean;
-};
-
 export type IntegrationDataModel = {
-  id: string;
   key: string;
   value: string;
   type: string;
 };
 export type IntegrationPropertyModel = {
-  id: string;
   key: string;
   value: string;
   type: string;
@@ -47,6 +34,5 @@ export type IntegrationPropertyModel = {
 };
 
 export type IntegrationEventModel = {
-  id: string;
   event: string;
 };

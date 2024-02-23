@@ -1,14 +1,14 @@
 import {IntegrationRepository} from "./IntegrationRepository";
-import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
-import {getGraphqlClient} from "../../../infrastructure/network/NetworkComponent";
-import {IntegrationModel} from "./integrationModel";
-import {integrationToModel} from "./IntegrationMapper";
+import {ResultModel} from "../../../../infrastructure/result/model/ResultModel";
+import {getGraphqlClient} from "../../../../infrastructure/network/NetworkComponent";
+import {IntegrationModel} from "../model/integrationModel";
+import {integrationToModel} from "../mapper/IntegrationMapper";
 import {
   ADD_INTEGRATION_QUERY,
   INTEGRATION_QUERY,
   INTEGRATIONS_QUERY,
-  UPDATE_INTEGRATION_QUERY
-} from "./IntegrationQuery";
+  SYNC_INTEGRATION_QUERY
+} from "../query/IntegrationQuery";
 
 class IntegrationRepositoryImpl implements IntegrationRepository {
 
@@ -108,7 +108,7 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
       onError: "The entered integrationId is not valid"
     }
     try {
-      const result = await this.graphqlClient.request(UPDATE_INTEGRATION_QUERY, {input: body});
+      const result = await this.graphqlClient.request(SYNC_INTEGRATION_QUERY, {input: body});
       return {
         onSuccess: result.updateIntegration
       }

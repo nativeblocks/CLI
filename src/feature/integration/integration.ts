@@ -1,7 +1,8 @@
 import {Command} from "commander";
-import {integrationRepository} from "./data/IntegrationRepositoryImpl";
+import {integrationRepository} from "./data/repository/IntegrationRepositoryImpl";
 import {confirm, input, select} from "@inquirer/prompts";
 import fs from "fs";
+import {createDefaultDir} from "../../infrastructure/utility/FileUitl";
 
 export function integrations(program: Command) {
   return program.command("list")
@@ -52,7 +53,11 @@ export function integration(program: Command) {
         const filtered = Object.fromEntries(
           Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
         );
-        console.log(filtered)
+        console.log("=========================================================================================")
+        const path = createDefaultDir()
+        fs.writeFileSync(`${path}/integration.json`, JSON.stringify(filtered))
+        console.log(`The result saved into ${path}/integration.json`)
+        console.log("=========================================================================================")
       } else {
         console.log(result.onError)
       }
@@ -64,7 +69,6 @@ export function addIntegration(program: Command) {
     .description("Add a new integration")
     .action(async () => {
       try {
-        const path = `${__dirname}/.nativeblocks`
         const body = {
           organizationId: "",
           keyType: "",
@@ -122,7 +126,6 @@ export function addIntegration(program: Command) {
           ]
         })
         body.public = await confirm({message: "Is the integration public"})
-        const filePath = await input({message: `Enter a path to save the result, by default it saves in ${path}`})
         const result = await integrationRepository.add(body)
         if (result.onSuccess) {
           const allowed = [
@@ -140,11 +143,9 @@ export function addIntegration(program: Command) {
             Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
           );
           console.log("=========================================================================================")
-          if (!fs.existsSync(filePath)) {
-            fs.mkdirSync(filePath, {recursive: true});
-          }
-          fs.writeFileSync(`${filePath}/integration.json`, JSON.stringify(filtered))
-          console.log(`The result saved into ${filePath}/integration.json`)
+          const path = createDefaultDir()
+          fs.writeFileSync(`${path}/integration.json`, JSON.stringify(filtered))
+          console.log(`The result saved into ${path}/integration.json`)
           console.log("=========================================================================================")
         } else {
           console.log(result.onError)
@@ -156,18 +157,18 @@ export function addIntegration(program: Command) {
     });
 }
 
-export function updateIntegration(program: Command) {
-  return program.command("update")
+export function syncIntegration(program: Command) {
+  return program.command("sync")
     .description("Update the integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
     .option("-f, --file", "Integration file")
     .argument('<organizationId>', "organization id")
     .argument('<integrationId>', "integration id")
-    .argument('<file>', "integration file")
-    .action(async (organizationId, integrationId, file) => {
+    .action(async (organizationId, integrationId) => {
       try {
-        const data: string = fs.readFileSync(file, "utf-8");
+        const path = createDefaultDir()
+        const data: string = fs.readFileSync(`${path}/integration.json`, "utf-8");
         const json = JSON.parse(data)
         const result = await integrationRepository.update({
           organizationId: organizationId,
@@ -190,8 +191,9 @@ export function updateIntegration(program: Command) {
             Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
           );
           console.log("=========================================================================================")
-          fs.writeFileSync(file, JSON.stringify(filtered))
-          console.log(`The result updated into ${file}`)
+          const path = createDefaultDir()
+          fs.writeFileSync(`${path}/integration.json`, JSON.stringify(filtered))
+          console.log(`The result saved into ${path}/integration.json`)
           console.log("=========================================================================================")
         } else {
           console.log(result.onError)

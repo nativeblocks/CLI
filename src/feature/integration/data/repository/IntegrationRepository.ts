@@ -1,5 +1,5 @@
-import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
-import {IntegrationModel} from "./integrationModel";
+import {ResultModel} from "../../../../infrastructure/result/model/ResultModel";
+import {IntegrationModel} from "../model/integrationModel";
 
 export interface IntegrationRepository {
   integrations(organizationId: string, isPublic: boolean, kind: string, platformSupport: string): Promise<ResultModel<IntegrationModel[]>>;

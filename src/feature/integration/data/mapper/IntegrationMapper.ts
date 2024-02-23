@@ -3,7 +3,7 @@ import {
   IntegrationEventModel,
   IntegrationModel,
   IntegrationPropertyModel
-} from "./integrationModel";
+} from "../model/integrationModel";
 
 export function integrationToModel(item: any): IntegrationModel {
   return {
@@ -33,18 +33,16 @@ export function integrationToModel(item: any): IntegrationModel {
   } as IntegrationModel;
 }
 
-function integrationDataToModel(item: any): IntegrationDataModel {
+export function integrationDataToModel(item: any): IntegrationDataModel {
   return {
-    id: item.id ?? "",
     key: item.key ?? "",
     value: item.value ?? "",
     type: item.type ?? "",
   } as IntegrationDataModel;
 }
 
-function integrationPropertyToModel(item: any): IntegrationPropertyModel {
+export function integrationPropertyToModel(item: any): IntegrationPropertyModel {
   return {
-    id: item.id ?? "",
     key: item.key ?? "",
     value: item.value ?? "",
     type: item.type ?? "",
@@ -57,9 +55,8 @@ function integrationPropertyToModel(item: any): IntegrationPropertyModel {
   } as IntegrationPropertyModel;
 }
 
-function integrationEventToModel(item: any): IntegrationEventModel {
+export function integrationEventToModel(item: any): IntegrationEventModel {
   return {
-    id: item.id,
-    event: item.event,
+    event: item?.event ?? "",
   } as IntegrationEventModel;
 }

@@ -1,6 +1,5 @@
 import {gql} from "graphql-request";
 
-
 export const INTEGRATIONS_QUERY = gql`
   query integrations(
     $organizationId: String!
@@ -91,8 +90,7 @@ mutation createIntegration($input: AddIntegrationInput!) {
     }
   }
 `;
-
-export const UPDATE_INTEGRATION_QUERY = gql`
+export const SYNC_INTEGRATION_QUERY = gql`
 mutation updateIntegration($input: UpdateIntegrationInput!) {
     updateIntegration(input: $input) {
       id
@@ -106,6 +104,76 @@ mutation updateIntegration($input: UpdateIntegrationInput!) {
       kind
       public
       documentation
+    }
+  }
+`;
+export const INTEGRATION_PROPERTIES_QUERY = gql`
+  query integrationProperties($organizationId: String!, $integrationId: String!) {
+    integrationProperties(
+      organizationId: $organizationId
+      integrationId: $integrationId
+    ) {
+      key
+      value
+      type
+      description
+      valuePicker
+      valuePickerCategory
+      valuePickerGroup
+      integrationId
+      valuePickerOption
+    }
+  }
+`;
+export const SYNC_INTEGRATION_PROPERTIES_MUTATION = gql`
+  mutation syncIntegrationProperties($input: SyncIntegrationPropertiesInput!) {
+    syncIntegrationProperties(input: $input) {
+        key
+        type
+        value
+        description
+        valuePicker
+        valuePickerCategory
+        valuePickerGroup
+        valuePickerOption
+    }
+  }
+`;
+export const INTEGRATION_EVENTS_QUERY = gql`
+  query integrationEvents($organizationId: String!, $integrationId: String!) {
+    integrationEvents(
+      organizationId: $organizationId
+      integrationId: $integrationId
+    ) {
+      event
+    }
+  }
+`;
+export const SYNC_INTEGRATION_EVENTS_MUTATION = gql`
+  mutation syncIntegrationEvents($input: SyncIntegrationEventsInput!) {
+    syncIntegrationEvents(input: $input) {
+      event
+    }
+  }
+`;
+export const INTEGRATION_DATA_QUERY = gql`
+  query integrationData($organizationId: String!, $integrationId: String!) {
+    integrationData(
+      organizationId: $organizationId
+      integrationId: $integrationId
+    ) {
+      key
+      value
+      type
+    }
+  }
+`;
+export const SYNC_INTEGRATION_DATA_MUTATION = gql`
+  mutation syncIntegrationData($input: SyncIntegrationDataInput!) {
+    syncIntegrationData(input: $input) {
+      key
+      value
+      type
     }
   }
 `;
