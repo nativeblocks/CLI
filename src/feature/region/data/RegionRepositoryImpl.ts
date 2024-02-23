@@ -12,7 +12,7 @@ class RegionRepositoryImpl implements RegionRepository {
 
   set(url: string): ResultModel<string> {
     const urlRegex: RegExp = /^https?:\/\/[^\s/$.?#].[^\s]*$/;
-    if (!urlRegex.test(url))  return {
+    if (!urlRegex.test(url)) return {
       onError: `the ${url} is not valid url`
     }
 
@@ -49,7 +49,7 @@ class RegionRepositoryImpl implements RegionRepository {
       }
     } else {
       return {
-        onError: `File does not exist at ${this.regionPath}`
+        onError: `Regin could not retrieve from ${this.regionPath}, please set the region url`
       }
     }
   }

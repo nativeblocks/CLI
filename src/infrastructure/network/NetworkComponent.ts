@@ -4,17 +4,20 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 
-export function getGraphqlClient() {
-  const endpoint = regionRepository.get()
-  if (!endpoint.onSuccess) {
-    console.error("Region url is not defined, please first set the region url.")
-    return
+let instance: GraphQLClient | null = null
+export const getGraphqlClient = () => {
+  if (instance == null) {
+    instance = new GraphQLClient("", {
+      headers: {
+        authorization: `Bearer ${getAuthToken()}`,
+      },
+    })
+    const endpoint = regionRepository.get()
+    if (endpoint.onSuccess) {
+      instance.setEndpoint(endpoint.onSuccess)
+    }
+    return instance
   }
-  return new GraphQLClient(endpoint.onSuccess, {
-    headers: {
-      authorization: `Bearer ${getAuthToken()}`,
-    },
-  })
 }
 
 function getAuthToken(): string {
