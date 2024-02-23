@@ -1,5 +1,5 @@
 import {Command} from "commander";
-import {region} from "./feature/region/region";
+import {region, getRegion, setRegion} from "./feature/region/region";
 import {auth} from "./feature/login/auth";
 import {organization} from "./feature/organization/organization";
 import {addIntegration, integration, integrations, syncIntegration} from "./feature/integration/integration";
@@ -14,7 +14,11 @@ program
   .description("Nativeblocks CLI for integration management")
   .version("1.0.0")
 
-region(program)
+const regionCommand = region(program)
+setRegion(regionCommand)
+getRegion(regionCommand)
+
+
 auth(program)
 organization(program)
 const integrationCommand = integration(program)

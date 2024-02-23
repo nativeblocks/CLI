@@ -4,7 +4,7 @@
   "description": "Nativeblocks CLI",
   "main": "dist/cjs/index.js",
   "bin": {
-    "tcs": "dist/cjs/index.js"
+    "nativeblocks": "dist/cjs/index.js"
   },
   "files": [
     "dist"
