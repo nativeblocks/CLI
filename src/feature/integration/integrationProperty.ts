@@ -3,22 +3,22 @@ import fs from "fs";
 import {createDefaultDir} from "../../infrastructure/utility/FileUitl";
 import {integrationMetaRepository} from "./data/repository/IntegrationMetaRepositoryImpl";
 
-export function integrationEvent(program: Command) {
-  return program.command("events")
+export function integrationProperty(program: Command) {
+  return program.command("properties")
     .description("List of events for an integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "")
     .argument('<organizationId>', "id")
     .argument('<integrationId>', "platform")
     .action(async (organizationId, integrationId) => {
-      const result = await integrationMetaRepository.integrationEvents(
+      const result = await integrationMetaRepository.integrationProperties(
         organizationId, integrationId
       )
       if (result.onSuccess) {
         console.log("=========================================================================================")
         const path = createDefaultDir()
-        fs.writeFileSync(`${path}/events.json`, JSON.stringify(result.onSuccess))
-        console.log(`The result saved into ${path}/events.json`)
+        fs.writeFileSync(`${path}/properties.json`, JSON.stringify(result.onSuccess))
+        console.log(`The result saved into ${path}/properties.json`)
         console.log("=========================================================================================")
       } else {
         console.log(result.onError)
@@ -26,7 +26,7 @@ export function integrationEvent(program: Command) {
     });
 }
 
-export function syncIntegrationEvent(program: Command) {
+export function syncIntegrationProperty(program: Command) {
   return program.command("sync")
     .description("Update the integration")
     .option("-orgId, --organizationId", "Organization id")
@@ -37,15 +37,15 @@ export function syncIntegrationEvent(program: Command) {
     .action(async (organizationId, integrationId) => {
       try {
         const path = createDefaultDir()
-        const data: string = fs.readFileSync(`${path}/events.json`, "utf-8");
+        const data: string = fs.readFileSync(`${path}/properties.json`, "utf-8");
         const json = JSON.parse(data)
-        const result = await integrationMetaRepository.syncIntegrationEvents(
-           organizationId, integrationId, json
+        const result = await integrationMetaRepository.syncIntegrationProperties(
+          organizationId, integrationId, json
         )
         if (result.onSuccess) {
           console.log("=========================================================================================")
-          fs.writeFileSync(`${path}/events.json`, JSON.stringify(result.onSuccess))
-          console.log(`The result updated into ${path}/events.json`)
+          fs.writeFileSync(`${path}/properties.json`, JSON.stringify(result.onSuccess))
+          console.log(`The result updated into ${path}/properties.json`)
           console.log("=========================================================================================")
         } else {
           console.log(result.onError)

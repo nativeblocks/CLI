@@ -120,7 +120,6 @@ export const INTEGRATION_PROPERTIES_QUERY = gql`
       valuePicker
       valuePickerCategory
       valuePickerGroup
-      integrationId
       valuePickerOption
     }
   }
