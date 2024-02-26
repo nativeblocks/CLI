@@ -8,10 +8,10 @@ export function integrationProperty(program: Command) {
     .description("List of events for an integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
-    .option("-d, --directory", "integration destination directory")
-    .argument('<organizationId>', "organization id")
-    .argument('<integrationId>', "integration id")
-    .argument('<directory>', "integration destination directory")
+    .option("-d, --directory", "Integration working directory")
+    .argument('<organizationId>', "Organization id")
+    .argument('<integrationId>', "Integration id")
+    .argument('<directory>', "Integration working directory")
     .action(async (organizationId, integrationId, directory) => {
       const result = await integrationMetaRepository.integrationProperties(
         organizationId, integrationId
@@ -33,10 +33,10 @@ export function syncIntegrationProperty(program: Command) {
     .description("Update the integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
-    .option("-d, --directory", "integration destination directory")
-    .argument('<organizationId>', "organization id")
-    .argument('<integrationId>', "integration id")
-    .argument('<directory>', "integration destination directory")
+    .option("-d, --directory", "Integration working directory")
+    .argument('<organizationId>', "Organization id")
+    .argument('<integrationId>', "Integration id")
+    .argument('<directory>', "Integration working directory")
     .action(async (organizationId, integrationId, directory) => {
       try {
         const path = createDefaultDir(directory)

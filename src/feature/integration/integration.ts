@@ -32,10 +32,10 @@ export function integration(program: Command) {
     .description("The integration detail")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
-    .option("-d, --directory", "integration destination directory")
-    .argument('<organizationId>', "organization id")
-    .argument('<integrationId>', "integration id")
-    .argument('<directory>', "integration destination directory")
+    .option("-d, --directory", "Integration working directory")
+    .argument('<organizationId>', "Organization id")
+    .argument('<integrationId>', "Integration id")
+    .argument('<directory>', "Integration working directory")
     .action(async (organizationId, integrationId, directory) => {
       const result = await integrationRepository.integration(organizationId, integrationId)
       if (result.onSuccess) {
@@ -127,7 +127,7 @@ export function addIntegration(program: Command) {
           ]
         })
         body.public = await confirm({message: "Is the integration public"})
-        const directory = await input({message: "Enter the integration destination directory"})
+        const directory = await input({message: "Enter the Integration working directory"})
         const result = await integrationRepository.add(body)
         if (result.onSuccess) {
           const allowed = [
@@ -164,10 +164,10 @@ export function syncIntegration(program: Command) {
     .description("Update the integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
-    .option("-d, --directory", "integration destination directory")
-    .argument('<organizationId>', "organization id")
-    .argument('<integrationId>', "integration id")
-    .argument('<directory>', "integration destination directory")
+    .option("-d, --directory", "Integration working directory")
+    .argument('<organizationId>', "Organization id")
+    .argument('<integrationId>', "Integration id")
+    .argument('<directory>', "Integration working directory")
     .action(async (organizationId, integrationId, directory) => {
       try {
         const path = createDefaultDir(directory)
