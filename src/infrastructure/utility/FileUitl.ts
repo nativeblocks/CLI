@@ -1,11 +1,8 @@
 import fs from "fs";
-import os from "os";
-import path from "path";
 
-export function createDefaultDir() {
-  const directory = `${__dirname}/.nativeblocks`
-  if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory, {recursive: true});
+export function createDefaultDir(directory: string) {
+  if (!fs.existsSync(`${directory}/.nativeblocks`)) {
+    fs.mkdirSync(`${directory}/.nativeblocks`, {recursive: true});
   }
-  return directory
+  return `${directory}/.nativeblocks`
 }

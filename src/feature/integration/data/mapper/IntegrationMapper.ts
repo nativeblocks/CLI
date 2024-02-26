@@ -18,7 +18,6 @@ export function integrationToModel(item: any): IntegrationModel {
     platformSupport: item.platformSupport ?? "",
     price: item.price ?? "",
     public: item.public ?? "",
-    version: item.version ?? -1,
     properties:
       item.properties?.map((property: any) => {
         return integrationPropertyToModel(property);

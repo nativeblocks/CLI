@@ -7,16 +7,18 @@ export function integrationProperty(program: Command) {
   return program.command("properties")
     .description("List of events for an integration")
     .option("-orgId, --organizationId", "Organization id")
-    .option("-id, --integrationId", "")
-    .argument('<organizationId>', "id")
-    .argument('<integrationId>', "platform")
-    .action(async (organizationId, integrationId) => {
+    .option("-id, --integrationId", "Integration id")
+    .option("-d, --directory", "integration destination directory")
+    .argument('<organizationId>', "organization id")
+    .argument('<integrationId>', "integration id")
+    .argument('<directory>', "integration destination directory")
+    .action(async (organizationId, integrationId, directory) => {
       const result = await integrationMetaRepository.integrationProperties(
         organizationId, integrationId
       )
       if (result.onSuccess) {
         console.log("=========================================================================================")
-        const path = createDefaultDir()
+        const path = createDefaultDir(directory)
         fs.writeFileSync(`${path}/properties.json`, JSON.stringify(result.onSuccess))
         console.log(`The result saved into ${path}/properties.json`)
         console.log("=========================================================================================")
@@ -31,12 +33,13 @@ export function syncIntegrationProperty(program: Command) {
     .description("Update the integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
-    .option("-f, --file", "Integration file")
+    .option("-d, --directory", "integration destination directory")
     .argument('<organizationId>', "organization id")
     .argument('<integrationId>', "integration id")
-    .action(async (organizationId, integrationId) => {
+    .argument('<directory>', "integration destination directory")
+    .action(async (organizationId, integrationId, directory) => {
       try {
-        const path = createDefaultDir()
+        const path = createDefaultDir(directory)
         const data: string = fs.readFileSync(`${path}/properties.json`, "utf-8");
         const json = JSON.parse(data)
         const result = await integrationMetaRepository.syncIntegrationProperties(

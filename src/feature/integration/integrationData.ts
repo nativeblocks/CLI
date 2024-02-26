@@ -7,16 +7,18 @@ export function integrationData(program: Command) {
   return program.command("data")
     .description("List of events for an integration")
     .option("-orgId, --organizationId", "Organization id")
-    .option("-id, --integrationId", "")
-    .argument('<organizationId>', "id")
-    .argument('<integrationId>', "platform")
-    .action(async (organizationId, integrationId) => {
+    .option("-id, --integrationId", "Integration id")
+    .option("-d, --directory", "integration destination directory")
+    .argument('<organizationId>', "organization id")
+    .argument('<integrationId>', "integration id")
+    .argument('<directory>', "integration destination directory")
+    .action(async (organizationId, integrationId, directory) => {
       const result = await integrationMetaRepository.integrationData(
         organizationId, integrationId
       )
       if (result.onSuccess) {
         console.log("=========================================================================================")
-        const path = createDefaultDir()
+        const path = createDefaultDir(directory)
         fs.writeFileSync(`${path}/data.json`, JSON.stringify(result.onSuccess))
         console.log(`The result saved into ${path}/data.json`)
         console.log("=========================================================================================")
@@ -31,12 +33,14 @@ export function syncIntegrationData(program: Command) {
     .description("Update the integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
-    .option("-f, --file", "Integration file")
+    .option("-d, --directory", "integration destination directory")
     .argument('<organizationId>', "organization id")
     .argument('<integrationId>', "integration id")
-    .action(async (organizationId, integrationId) => {
+    .argument('<directory>', "integration destination directory")
+    .description("Update the integration")
+    .action(async (organizationId, integrationId, directory) => {
       try {
-        const path = createDefaultDir()
+        const path = createDefaultDir(directory)
         const data: string = fs.readFileSync(`${path}/data.json`, "utf-8");
         const json = JSON.parse(data)
         const result = await integrationMetaRepository.syncIntegrationData(

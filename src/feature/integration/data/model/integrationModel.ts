@@ -7,7 +7,6 @@ export type IntegrationModel = {
   kind: string;
   imageIcon: string;
   price: number;
-  version: number;
   documentation: string;
   public: boolean;
   manageable: boolean;

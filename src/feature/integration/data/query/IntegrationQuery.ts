@@ -81,7 +81,6 @@ mutation createIntegration($input: AddIntegrationInput!) {
       name
       imageIcon
       price
-      version
       description
       platformSupport
       kind
@@ -98,7 +97,6 @@ mutation updateIntegration($input: UpdateIntegrationInput!) {
       name
       imageIcon
       price
-      version
       description
       platformSupport
       kind

@@ -32,9 +32,11 @@ export function integration(program: Command) {
     .description("The integration detail")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
+    .option("-d, --directory", "integration destination directory")
     .argument('<organizationId>', "organization id")
     .argument('<integrationId>', "integration id")
-    .action(async (organizationId, integrationId) => {
+    .argument('<directory>', "integration destination directory")
+    .action(async (organizationId, integrationId, directory) => {
       const result = await integrationRepository.integration(organizationId, integrationId)
       if (result.onSuccess) {
         const allowed = [
@@ -43,7 +45,6 @@ export function integration(program: Command) {
           "keyType",
           "imageIcon",
           "price",
-          "version",
           "description",
           "documentation",
           "platformSupport",
@@ -54,7 +55,7 @@ export function integration(program: Command) {
           Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
         );
         console.log("=========================================================================================")
-        const path = createDefaultDir()
+        const path = createDefaultDir(directory)
         fs.writeFileSync(`${path}/integration.json`, JSON.stringify(filtered))
         console.log(`The result saved into ${path}/integration.json`)
         console.log("=========================================================================================")
@@ -126,6 +127,7 @@ export function addIntegration(program: Command) {
           ]
         })
         body.public = await confirm({message: "Is the integration public"})
+        const directory = await input({message: "Enter the integration destination directory"})
         const result = await integrationRepository.add(body)
         if (result.onSuccess) {
           const allowed = [
@@ -143,7 +145,7 @@ export function addIntegration(program: Command) {
             Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
           );
           console.log("=========================================================================================")
-          const path = createDefaultDir()
+          const path = createDefaultDir(directory)
           fs.writeFileSync(`${path}/integration.json`, JSON.stringify(filtered))
           console.log(`The result saved into ${path}/integration.json`)
           console.log("=========================================================================================")
@@ -162,12 +164,13 @@ export function syncIntegration(program: Command) {
     .description("Update the integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
-    .option("-f, --file", "Integration file")
+    .option("-d, --directory", "integration destination directory")
     .argument('<organizationId>', "organization id")
     .argument('<integrationId>', "integration id")
-    .action(async (organizationId, integrationId) => {
+    .argument('<directory>', "integration destination directory")
+    .action(async (organizationId, integrationId, directory) => {
       try {
-        const path = createDefaultDir()
+        const path = createDefaultDir(directory)
         const data: string = fs.readFileSync(`${path}/integration.json`, "utf-8");
         const json = JSON.parse(data)
         const result = await integrationRepository.update({
@@ -191,7 +194,7 @@ export function syncIntegration(program: Command) {
             Object.entries(result.onSuccess).filter(([key, val]) => allowed.includes(key))
           );
           console.log("=========================================================================================")
-          const path = createDefaultDir()
+          const path = createDefaultDir(directory)
           fs.writeFileSync(`${path}/integration.json`, JSON.stringify(filtered))
           console.log(`The result saved into ${path}/integration.json`)
           console.log("=========================================================================================")

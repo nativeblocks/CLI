@@ -18,20 +18,17 @@ const regionCommand = region(program)
 setRegion(regionCommand)
 getRegion(regionCommand)
 
-
 auth(program)
 organization(program)
+
 const integrationCommand = integration(program)
 integrations(integrationCommand)
 addIntegration(integrationCommand)
 syncIntegration(integrationCommand)
-
 const eventCommand = integrationEvent(integrationCommand)
 syncIntegrationEvent(eventCommand)
-
 const propertyCommand = integrationProperty(integrationCommand)
 syncIntegrationProperty(propertyCommand)
-
 const dataCommand = integrationData(integrationCommand)
 syncIntegrationData(dataCommand)
 
