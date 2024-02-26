@@ -76,7 +76,7 @@ nativeblocks auth -u "foo@example.com" -p "foobar1234"
 #### Organization list
 
 ```bash
-nativeblocks organizations
+nativeblocks organization list
 ```
 
 ### Integration
