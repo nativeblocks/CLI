@@ -1,6 +1,5 @@
 import {IntegrationRepository} from "./IntegrationRepository";
-import {ResultModel} from "../../../../infrastructure/result/model/ResultModel";
-import {getGraphqlClient} from "../../../../infrastructure/network/NetworkComponent";
+import {getGraphqlClient, handleNetworkError} from "../../../../infrastructure/network/NetworkComponent";
 import {IntegrationModel} from "../model/integrationModel";
 import {integrationToModel} from "../mapper/IntegrationMapper";
 import {
@@ -9,6 +8,7 @@ import {
   INTEGRATIONS_QUERY,
   SYNC_INTEGRATION_QUERY
 } from "../query/IntegrationQuery";
+import {ResultModel} from "../../../../infrastructure/result/model/ResultModel";
 
 class IntegrationRepositoryImpl implements IntegrationRepository {
 
@@ -37,7 +37,7 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
@@ -53,7 +53,7 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
@@ -86,7 +86,7 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
@@ -114,7 +114,7 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }

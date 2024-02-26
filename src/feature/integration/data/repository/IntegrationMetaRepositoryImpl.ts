@@ -1,7 +1,7 @@
 import {ResultModel} from "../../../../infrastructure/result/model/ResultModel";
 import {IntegrationMetaRepository} from "./IntegrationMetaRepository";
 import {IntegrationDataModel, IntegrationEventModel, IntegrationPropertyModel} from "../model/integrationModel";
-import {getGraphqlClient} from "../../../../infrastructure/network/NetworkComponent";
+import {getGraphqlClient, handleNetworkError} from "../../../../infrastructure/network/NetworkComponent";
 import {
   INTEGRATION_DATA_QUERY,
   INTEGRATION_EVENTS_QUERY,
@@ -33,7 +33,7 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
@@ -54,7 +54,7 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
@@ -72,7 +72,7 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
@@ -93,7 +93,7 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
@@ -111,7 +111,7 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
@@ -132,7 +132,7 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }

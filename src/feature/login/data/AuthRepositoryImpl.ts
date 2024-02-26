@@ -1,10 +1,10 @@
 import {AuthRepository} from "./AuthRepository";
-import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
 import os from "os";
 import path from "path";
 import * as fs from "fs";
-import {getGraphqlClient} from "../../../infrastructure/network/NetworkComponent";
+import {getGraphqlClient, handleNetworkError} from "../../../infrastructure/network/NetworkComponent";
 import {AUTH_LOGIN_MUTATION} from "./AuthQuery";
+import {ResultModel} from "../../../infrastructure/result/model/ResultModel";
 
 class AuthRepositoryImpl implements AuthRepository {
   private userHomeDir: string = os.homedir();
@@ -37,7 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
     } catch (error: any) {
       return {
-        onError: error.message,
+        onError: handleNetworkError(error).errorMessage,
       }
     }
   }
