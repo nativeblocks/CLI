@@ -1,6 +1,30 @@
 # Nativeblocks CLI
 
-Always you can find all command by help command
+## Installation
+
+```bash
+npm install -g @nativeblocks/cli
+```
+
+Or
+
+```bash
+yarn global add @nativeblocks/cli
+```
+
+## Updating
+
+```bash
+npm update -g @nativeblocks/cli --latest
+```
+
+Or
+
+```bash
+yarn global upgrade @nativeblocks/cli --latest
+```
+
+You can always find all command by help command
 
 ```bash
 nativeblocks help
