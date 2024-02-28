@@ -136,7 +136,6 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
       }
     }
   }
-
 }
 
 export const integrationMetaRepository: IntegrationMetaRepository = new IntegrationMetaRepositoryImpl(

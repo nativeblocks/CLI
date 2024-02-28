@@ -35,7 +35,6 @@ export function integrationToModel(item: any): IntegrationModel {
 export function integrationDataToModel(item: any): IntegrationDataModel {
   return {
     key: item.key ?? "",
-    value: item.value ?? "",
     type: item.type ?? "",
   } as IntegrationDataModel;
 }

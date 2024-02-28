@@ -67,7 +67,6 @@ export const INTEGRATION_QUERY = gql`
       data {
         id
         key
-        value
         type
       }
     }
@@ -160,7 +159,6 @@ export const INTEGRATION_DATA_QUERY = gql`
       integrationId: $integrationId
     ) {
       key
-      value
       type
     }
   }
@@ -169,7 +167,6 @@ export const SYNC_INTEGRATION_DATA_MUTATION = gql`
   mutation syncIntegrationData($input: SyncIntegrationDataInput!) {
     syncIntegrationData(input: $input) {
       key
-      value
       type
     }
   }

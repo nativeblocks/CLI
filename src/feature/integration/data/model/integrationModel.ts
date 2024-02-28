@@ -17,7 +17,6 @@ export type IntegrationModel = {
 
 export type IntegrationDataModel = {
   key: string;
-  value: string;
   type: string;
 };
 export type IntegrationPropertyModel = {
