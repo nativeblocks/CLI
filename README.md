@@ -30,13 +30,6 @@ You can always find all command by help command
 nativeblocks help
 ```
 
-Also, as following you can see the usage
-
-> **NOTE:** wherever you run the CLI, it creates a `.nativeblocks` directory in there, to save, update and read the
-> integration information
->
-> It is recommended to run the CLI in the coding directory
-
 ## Features
 
 - Region
