@@ -1,5 +1,4 @@
 export type IntegrationModel = {
-  id: string;
   name: string;
   description: string;
   keyType: string;
@@ -27,7 +26,6 @@ export type IntegrationPropertyModel = {
   valuePicker: string;
   valuePickerCategory: string;
   valuePickerGroup: string;
-  integrationId: string;
   valuePickerOption: string;
 };
 
