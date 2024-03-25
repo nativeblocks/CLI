@@ -1,61 +1,59 @@
-import {Command} from "commander";
+import { Command } from "commander";
 import fs from "fs";
-import {createDefaultDir} from "../../infrastructure/utility/FileUitl";
-import {integrationMetaRepository} from "./data/repository/IntegrationMetaRepositoryImpl";
+import { createDefaultDir } from "../../infrastructure/utility/FileUitl";
+import { integrationMetaRepository } from "./data/repository/IntegrationMetaRepositoryImpl";
 
 export function integrationData(program: Command) {
-  return program.command("data")
+  return program
+    .command("data")
     .description("List of events for an integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
     .option("-d, --directory", "Integration working directory")
-    .argument('<organizationId>', "Organization id")
-    .argument('<integrationId>', "Integration id")
-    .argument('<directory>', "Integration working directory")
+    .argument("<organizationId>", "Organization id")
+    .argument("<integrationId>", "Integration id")
+    .argument("<directory>", "Integration working directory")
     .action(async (organizationId, integrationId, directory) => {
-      const result = await integrationMetaRepository.integrationData(
-        organizationId, integrationId
-      )
+      const result = await integrationMetaRepository.integrationData(organizationId, integrationId);
       if (result.onSuccess) {
-        console.log("=========================================================================================")
-        const path = createDefaultDir(directory)
-        fs.writeFileSync(`${path}/data.json`, JSON.stringify(result.onSuccess))
-        console.log(`The result saved into ${path}/data.json`)
-        console.log("=========================================================================================")
+        console.log("=========================================================================================");
+        const path = createDefaultDir(directory);
+        fs.writeFileSync(`${path}/data.json`, JSON.stringify(result.onSuccess));
+        console.log(`The result saved into ${path}/data.json`);
+        console.log("=========================================================================================");
       } else {
-        console.log(result.onError)
+        console.log(result.onError);
       }
     });
 }
 
 export function syncIntegrationData(program: Command) {
-  return program.command("sync")
+  return program
+    .command("sync")
     .description("Update the integration")
     .option("-orgId, --organizationId", "Organization id")
     .option("-id, --integrationId", "Integration id")
     .option("-d, --directory", "Integration working directory")
-    .argument('<organizationId>', "Organization id")
-    .argument('<integrationId>', "Integration id")
-    .argument('<directory>', "Integration working directory")
+    .argument("<organizationId>", "Organization id")
+    .argument("<integrationId>", "Integration id")
+    .argument("<directory>", "Integration working directory")
     .description("Update the integration")
     .action(async (organizationId, integrationId, directory) => {
       try {
-        const path = createDefaultDir(directory)
+        const path = createDefaultDir(directory);
         const data: string = fs.readFileSync(`${path}/data.json`, "utf-8");
-        const json = JSON.parse(data)
-        const result = await integrationMetaRepository.syncIntegrationData(
-          organizationId, integrationId, json
-        )
+        const json = JSON.parse(data);
+        const result = await integrationMetaRepository.syncIntegrationData(organizationId, integrationId, json);
         if (result.onSuccess) {
-          console.log("=========================================================================================")
-          fs.writeFileSync(`${path}/data.json`, JSON.stringify(result.onSuccess))
-          console.log(`The result updated into ${path}/data.json`)
-          console.log("=========================================================================================")
+          console.log("=========================================================================================");
+          fs.writeFileSync(`${path}/data.json`, JSON.stringify(result.onSuccess));
+          console.log(`The result updated into ${path}/data.json`);
+          console.log("=========================================================================================");
         } else {
-          console.log(result.onError)
+          console.log(result.onError);
         }
       } catch (e) {
-        console.log("Syncing information failed")
+        console.log("Syncing information failed");
       }
     });
 }
