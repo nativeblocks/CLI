@@ -2,12 +2,12 @@ import {
   IntegrationDataModel,
   IntegrationEventModel,
   IntegrationModel,
-  IntegrationPropertyModel
+  IntegrationPropertyModel,
 } from "../model/integrationModel";
 
 export function integrationToModel(item: any): IntegrationModel {
   return {
-    id: item.id ?? "",
+    id: item.id,
     name: item.name,
     description: item.description ?? "",
     documentation: item.documentation ?? "",
@@ -26,9 +26,10 @@ export function integrationToModel(item: any): IntegrationModel {
       item.events?.map((event: any) => {
         return integrationEventToModel(event);
       }) ?? [],
-    data: item.data?.map((event: any) => {
-      return integrationDataToModel(event);
-    }) ?? [],
+    data:
+      item.data?.map((event: any) => {
+        return integrationDataToModel(event);
+      }) ?? [],
   } as IntegrationModel;
 }
 

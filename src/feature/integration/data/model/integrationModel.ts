@@ -27,7 +27,6 @@ export type IntegrationPropertyModel = {
   valuePicker: string;
   valuePickerCategory: string;
   valuePickerGroup: string;
-  integrationId: string;
   valuePickerOption: string;
 };
 
