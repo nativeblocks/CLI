@@ -12,25 +12,25 @@ const program = new Command();
 program
   .name("nativeblocks")
   .description("Nativeblocks CLI for integration management")
-  .version(`${process.env.npm_package_version}`)
+  .version(`${process.env.npm_package_version}`);
 
-const regionCommand = region(program)
-setRegion(regionCommand)
-getRegion(regionCommand)
+const regionCommand = region(program);
+setRegion(regionCommand);
+getRegion(regionCommand);
 
-auth(program)
-organization(program)
+auth(program);
+organization(program);
 
-const integrationCommand = integration(program)
-integrations(integrationCommand)
-addIntegration(integrationCommand)
-syncIntegration(integrationCommand)
+const integrationCommand = integration(program);
+integrations(integrationCommand);
+addIntegration(integrationCommand);
+syncIntegration(integrationCommand);
 // generateIntegration(integrationCommand)
-const eventCommand = integrationEvent(integrationCommand)
-syncIntegrationEvent(eventCommand)
-const propertyCommand = integrationProperty(integrationCommand)
-syncIntegrationProperty(propertyCommand)
-const dataCommand = integrationData(integrationCommand)
-syncIntegrationData(dataCommand)
+const eventCommand = integrationEvent(integrationCommand);
+syncIntegrationEvent(eventCommand);
+const propertyCommand = integrationProperty(integrationCommand);
+syncIntegrationProperty(propertyCommand);
+const dataCommand = integrationData(integrationCommand);
+syncIntegrationData(dataCommand);
 
 program.parse();

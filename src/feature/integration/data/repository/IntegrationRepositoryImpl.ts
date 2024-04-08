@@ -18,17 +18,14 @@ class IntegrationRepositoryImpl implements IntegrationRepository {
     this.graphqlClient = graphqlClient;
   }
 
-  async integrations(organizationId: string, isPublic: boolean, kind: string, platformSupport: string): Promise<ResultModel<IntegrationModel[]>> {
+  async integrations(organizationId: string, kind: string, platformSupport: string): Promise<ResultModel<IntegrationModel[]>> {
     try {
       const result = await this.graphqlClient.request(INTEGRATIONS_QUERY, {
         organizationId: organizationId,
-        public: isPublic,
         kind: kind,
         platformSupport: platformSupport,
         page: 0,
         limit: 10000,
-        orderBy: "createdAt",
-        sortOf: "DESC",
       });
       return {
         onSuccess: result.integrations?.map((item: any) => {

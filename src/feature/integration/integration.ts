@@ -17,13 +17,11 @@ export function integrations(program: Command) {
     .option("-orgId, --organizationId", "Organization id")
     .option("-p, --platform", "Platform of integration, ANDROID, IOS, REACT")
     .option("-k, --kind", "Kind of integration, BLOCK, MAGIC, LOGGER or ALL")
-    .option("-public, --public", "Public or private integration")
     .argument("<organizationId>", "id")
     .argument("<platform>", "platform")
     .argument("[kind]", "kind", "ALL")
-    .argument("[public]", "public", true)
-    .action(async (organizationId, platform, kind, isPublic) => {
-      const result = await integrationRepository.integrations(organizationId, isPublic, kind, platform);
+    .action(async (organizationId, platform, kind) => {
+      const result = await integrationRepository.integrations(organizationId, kind, platform);
       if (result.onSuccess) {
         console.table(result.onSuccess, ["id", "name", "keyType", "kind", "platformSupport", "public"]);
       } else {
@@ -46,7 +44,6 @@ export function integration(program: Command) {
       const result = await integrationRepository.integration(organizationId, integrationId);
       if (result.onSuccess) {
         const allowed = [
-          "id",
           "name",
           "keyType",
           "imageIcon",

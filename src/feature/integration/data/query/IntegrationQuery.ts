@@ -3,23 +3,17 @@ import {gql} from "graphql-request";
 export const INTEGRATIONS_QUERY = gql`
   query integrations(
     $organizationId: String!
-    $public: Boolean!
     $kind: String!
     $platformSupport: String!
     $page: Int!
     $limit: Int!
-    $orderBy: String!
-    $sortOf: String!
   ) {
     integrations(
       organizationId: $organizationId
-      public: $public
       kind: $kind
       platformSupport: $platformSupport
       page: $page
       limit: $limit
-      orderBy: $orderBy
-      sortOf: $sortOf
     ) {
       id
       keyType

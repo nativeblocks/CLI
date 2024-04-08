@@ -79,10 +79,9 @@ nativeblocks organization list
 - -orgId, --organizationId, Organization id
 - -p, --platform, Platform of integration, ANDROID, IOS, REACT
 - -k, --kind, Kind of integration, BLOCK, MAGIC, LOGGER or ALL
-- -public, --public, Public or private integration
 
 ```bash
-nativeblocks integration list -orgId "1111-1111-1111-1111" -p "REACT" -k "ALL"  --public false
+nativeblocks integration list -orgId "1111-1111-1111-1111" -p "REACT" -k "ALL"
 ```
 
 #### Integration add

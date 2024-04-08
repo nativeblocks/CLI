@@ -1,4 +1,5 @@
 export type IntegrationModel = {
+  id: string;
   name: string;
   description: string;
   keyType: string;

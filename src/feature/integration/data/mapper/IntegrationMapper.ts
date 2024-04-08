@@ -7,6 +7,7 @@ import {
 
 export function integrationToModel(item: any): IntegrationModel {
   return {
+    id: item.id,
     name: item.name,
     description: item.description ?? "",
     documentation: item.documentation ?? "",
