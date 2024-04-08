@@ -94,9 +94,9 @@ export function addIntegration(program: Command) {
           message: "Enter the integration keyType (Must be unique for entire of the platform)",
         });
         body.name = await input({ message: "Enter the integration name" });
-        body.imageIcon = await input({ message: "Enter the integration imageIcon url" });
-        body.price = Number(await input({ message: "Enter the integration price leave 0 if it's free" }));
-        body.description = await input({ message: "Enter the integration short description" });
+        // body.imageIcon = await input({ message: "Enter the integration imageIcon url" });
+        // body.price = Number(await input({ message: "Enter the integration price leave 0 if it's free" }));
+        body.description = await input({ message: "Enter the integration short description (should be min 10 and max 100 character)" });
         body.documentation = await input({ message: "Enter the integration documentation in MD format" });
         body.platformSupport = await select({
           message: "Enter the integration platformSupport",
