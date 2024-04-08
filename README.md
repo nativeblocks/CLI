@@ -85,6 +85,12 @@ nativeblocks organization list
 nativeblocks integration list -orgId "1111-1111-1111-1111" -p "REACT" -k "ALL"  --public false
 ```
 
+#### Integration add
+
+```bash
+nativeblocks integration add
+```
+
 #### Integration detail
 
 - -orgId, --organizationId, Organization id
