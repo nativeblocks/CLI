@@ -1,11 +1,11 @@
-import {Command} from "commander";
-import {getRegion, region, setRegion} from "./feature/region/region";
-import {auth} from "./feature/login/auth";
-import {organization} from "./feature/organization/organization";
-import {addIntegration, generateIntegration, integration, integrations, syncIntegration} from "./feature/integration/integration";
-import {integrationEvent, syncIntegrationEvent} from "./feature/integration/integrationEvent";
-import {integrationProperty, syncIntegrationProperty} from "./feature/integration/integrationProperty";
-import {integrationData, syncIntegrationData} from "./feature/integration/integrationData";
+import { Command } from "commander";
+import { addIntegration, integration, integrations, syncIntegration } from "./feature/integration/integration";
+import { integrationData, syncIntegrationData } from "./feature/integration/integrationData";
+import { integrationEvent, syncIntegrationEvent } from "./feature/integration/integrationEvent";
+import { integrationProperty, syncIntegrationProperty } from "./feature/integration/integrationProperty";
+import { auth } from "./feature/login/auth";
+import { organization } from "./feature/organization/organization";
+import { getRegion, region, setRegion } from "./feature/region/region";
 
 const program = new Command();
 
