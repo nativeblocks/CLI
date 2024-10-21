@@ -173,7 +173,7 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
         integrationId: integrationId,
       });
       return {
-        onSuccess: result.integrationSlot?.map((item: any) => {
+        onSuccess: result.integrationSlots?.map((item: any) => {
           return integrationSlotToModel(item);
         }),
       };
@@ -198,7 +198,7 @@ export class IntegrationMetaRepositoryImpl implements IntegrationMetaRepository 
         },
       });
       return {
-        onSuccess: result.syncIntegrationSlot?.map((item: any) => {
+        onSuccess: result.syncIntegrationSlots?.map((item: any) => {
           return integrationSlotToModel(item);
         }),
       };
