@@ -1,5 +1,5 @@
 import {ResultModel} from "../../../../infrastructure/result/model/ResultModel";
-import {IntegrationDataModel, IntegrationEventModel, IntegrationPropertyModel} from "../model/integrationModel";
+import {IntegrationDataModel, IntegrationEventModel, IntegrationPropertyModel, IntegrationSlotModel} from "../model/integrationModel";
 
 export interface IntegrationMetaRepository {
 
@@ -14,4 +14,8 @@ export interface IntegrationMetaRepository {
   integrationData(organizationId: string, integrationId: string): Promise<ResultModel<IntegrationDataModel[]>>
 
   syncIntegrationData(organizationId: string, integrationId: string, payload: any): Promise<ResultModel<IntegrationDataModel[]>>
+
+  integrationSlots(organizationId: string, integrationId: string): Promise<ResultModel<IntegrationSlotModel[]>>
+
+  syncIntegrationSlots(organizationId: string, integrationId: string, payload: any): Promise<ResultModel<IntegrationSlotModel[]>>
 }

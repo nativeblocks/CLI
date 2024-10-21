@@ -3,6 +3,7 @@ import {
   IntegrationEventModel,
   IntegrationModel,
   IntegrationPropertyModel,
+  IntegrationSlotModel,
 } from "../model/integrationModel";
 
 export function integrationToModel(item: any): IntegrationModel {
@@ -47,10 +48,9 @@ export function integrationPropertyToModel(item: any): IntegrationPropertyModel 
     type: item.type ?? "",
     description: item.description ?? "",
     valuePicker: item.valuePicker ?? "",
-    valuePickerCategory: item.valuePickerCategory ?? "",
     valuePickerGroup: item.valuePickerGroup ?? "",
     integrationId: item.integrationId ?? "",
-    valuePickerOption: item.valuePickerOption ?? "",
+    valuePickerOptions: item.valuePickerOptions ?? "",
   } as IntegrationPropertyModel;
 }
 
@@ -58,4 +58,10 @@ export function integrationEventToModel(item: any): IntegrationEventModel {
   return {
     event: item?.event ?? "",
   } as IntegrationEventModel;
+}
+
+export function integrationSlotToModel(item: any): IntegrationSlotModel {
+  return {
+    slot: item?.slot ?? "",
+  } as IntegrationSlotModel;
 }

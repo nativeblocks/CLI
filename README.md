@@ -78,7 +78,7 @@ nativeblocks organization list
 
 - -orgId, --organizationId, Organization id
 - -p, --platform, Platform of integration, ANDROID, IOS, REACT
-- -k, --kind, Kind of integration, BLOCK, MAGIC, LOGGER or ALL
+- -k, --kind, Kind of integration, BLOCK, ACTION, LOGGER or ALL
 
 ```bash
 nativeblocks integration list -orgId "1111-1111-1111-1111" -p "REACT" -k "ALL"
@@ -168,4 +168,24 @@ nativeblocks integration data -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2
 
 ```bash
 nativeblocks integration data sync -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+```
+
+#### Integration slots
+
+- -orgId, --organizationId, Organization id
+- -id, --integrationId, Integration id
+- -d, --directory, Integration working directory
+
+```bash
+nativeblocks integration slots -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+```
+
+#### Integration slots sync (update)
+
+- -orgId, --organizationId, Organization id
+- -id, --integrationId, Integration id
+- -d, --directory, Integration working directory
+
+```bash
+nativeblocks integration slots sync -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```

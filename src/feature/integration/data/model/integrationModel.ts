@@ -13,6 +13,7 @@ export type IntegrationModel = {
   properties?: IntegrationPropertyModel[];
   events?: IntegrationEventModel[];
   data?: IntegrationDataModel[];
+  slots?: IntegrationSlotModel[];
 };
 
 export type IntegrationDataModel = {
@@ -25,11 +26,14 @@ export type IntegrationPropertyModel = {
   type: string;
   description: string;
   valuePicker: string;
-  valuePickerCategory: string;
   valuePickerGroup: string;
-  valuePickerOption: string;
+  valuePickerOptions: string;
 };
 
 export type IntegrationEventModel = {
   event: string;
+};
+
+export type IntegrationSlotModel = {
+  slot: string;
 };

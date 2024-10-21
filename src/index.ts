@@ -3,8 +3,9 @@ import { addIntegration, integration, integrations, syncIntegration } from "./fe
 import { integrationData, syncIntegrationData } from "./feature/integration/integrationData";
 import { integrationEvent, syncIntegrationEvent } from "./feature/integration/integrationEvent";
 import { integrationProperty, syncIntegrationProperty } from "./feature/integration/integrationProperty";
+import { integrationSlot, syncIntegrationSlot } from "./feature/integration/integrationSlot";
 import { auth } from "./feature/login/auth";
-import { organization } from "./feature/organization/organization";
+import { getOrganization, organization, organizationList, setOrganization } from "./feature/organization/organization";
 import { getRegion, region, setRegion } from "./feature/region/region";
 
 const program = new Command();
@@ -19,18 +20,27 @@ setRegion(regionCommand);
 getRegion(regionCommand);
 
 auth(program);
-organization(program);
+
+const organizationCommand = organization(program);
+organizationList(organizationCommand);
+setOrganization(organizationCommand);
+getOrganization(organizationCommand);
 
 const integrationCommand = integration(program);
 integrations(integrationCommand);
 addIntegration(integrationCommand);
 syncIntegration(integrationCommand);
-// generateIntegration(integrationCommand)
+
 const eventCommand = integrationEvent(integrationCommand);
 syncIntegrationEvent(eventCommand);
+
 const propertyCommand = integrationProperty(integrationCommand);
 syncIntegrationProperty(propertyCommand);
+
 const dataCommand = integrationData(integrationCommand);
 syncIntegrationData(dataCommand);
+
+const slotCommand = integrationSlot(integrationCommand);
+syncIntegrationSlot(slotCommand);
 
 program.parse();
