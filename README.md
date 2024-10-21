@@ -66,6 +66,20 @@ nativeblocks auth -u "foo@example.com" -p "foobar1234"
 
 ### Organization
 
+#### Set organization id
+
+- -u, --url, Set organization id
+
+```bash
+nativeblocks organization set "1111-1111-1111-1111"
+```
+
+#### Get organization id
+
+```bash
+nativeblocks region get
+```
+
 #### Organization list
 
 ```bash
@@ -76,12 +90,11 @@ nativeblocks organization list
 
 #### Integration list
 
-- -orgId, --organizationId, Organization id
 - -p, --platform, Platform of integration, ANDROID, IOS, REACT
 - -k, --kind, Kind of integration, BLOCK, ACTION, LOGGER or ALL
 
 ```bash
-nativeblocks integration list -orgId "1111-1111-1111-1111" -p "REACT" -k "ALL"
+nativeblocks integration list -p "REACT" -k "ALL"
 ```
 
 #### Integration add
@@ -92,100 +105,90 @@ nativeblocks integration add
 
 #### Integration detail
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222"
+nativeblocks integration -id "2222-2222-2222-2222"
 ```
 
 #### Integration sync (update)
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration sync -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration sync -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```
 
 #### Integration properties
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration properties -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration properties -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```
 
 #### Integration properties sync (update)
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration properties sync -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration properties sync -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```
 
 #### Integration events
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration events -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration events -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```
 
 #### Integration events sync (update)
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration events sync -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration events sync -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```
 
 #### Integration data
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration data -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration data -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```
 
 #### Integration data sync (update)
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration data sync -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration data sync -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```
 
 #### Integration slots
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration slots -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration slots -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```
 
 #### Integration slots sync (update)
 
-- -orgId, --organizationId, Organization id
 - -id, --integrationId, Integration id
 - -d, --directory, Integration working directory
 
 ```bash
-nativeblocks integration slots sync -orgId "1111-1111-1111-1111" -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
+nativeblocks integration slots sync -id "2222-2222-2222-2222" -d "/Users/sample/projects/awesome_project/integrations/button"
 ```

@@ -147,7 +147,6 @@ export const SYNC_INTEGRATION_DATA_MUTATION = gql`
     }
   }
 `;
-
 export const INTEGRATION_SLOTS_QUERY = gql`
   query integrationSlots($organizationId: String!, $integrationId: String!) {
     integrationSlots(organizationId: $organizationId, integrationId: $integrationId) {
@@ -155,7 +154,6 @@ export const INTEGRATION_SLOTS_QUERY = gql`
     }
   }
 `;
-
 export const SYNC_INTEGRATION_SLOTS_MUTATION = gql`
   mutation syncIntegrationSlots($input: SyncIntegrationDataInput!) {
     syncIntegrationSlots(input: $input) {
